@@ -1,6 +1,6 @@
 // --- Configuration ---
 // Adjust this threshold: higher number means you have to blow harder (0-255)
-const BLOW_THRESHOLD = 100; 
+const BLOW_THRESHOLD = 160; 
 
 // --- HTML Elements ---
 const candleStick = document.querySelector('.candle-stick');

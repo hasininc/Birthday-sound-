@@ -19,6 +19,7 @@
         /* --- CAKE CONTAINER --- */
         .cake-container {
             position: relative;
+            top: 20px;
             width: 150px; /* Overall width */
             height: 180px; /* Overall height for two layers */
             transform: scale(2.5); /* Scale up the small pixel art design */
@@ -28,7 +29,7 @@
         /* --- BOTTOM CAKE LAYER --- */
         .cake-layer-bottom {
             position: absolute;
-            bottom: 0;
+            bottom: -20px;
             left: 5px;
             width: 140px;
             height: 40px;
@@ -40,7 +41,7 @@
         /* --- MIDDLE CAKE LAYER --- */
         .cake-layer-middle {
             position: absolute;
-            bottom: 40px;
+            bottom: 20px;
             
             width: 150px;
             height: 10px;
@@ -52,7 +53,7 @@
         /* --- TOP ICING BODY (Pink) --- */
         .icing-main {
             position: absolute;
-            bottom: 55px; /* On top of the middle layer */
+            bottom: 34px; /* On top of the middle layer */
             left: 10px;
             width: 130px;
             height: 35px;
@@ -115,7 +116,7 @@
         /* --- CANDLE --- */
         .candle-stick {
             position: absolute;
-            bottom: 90px; /* On top of the icing */
+            bottom: 70px; /* Sunk into the icing */
             left: 70px; /* Centered on the top layer */
             width: 12px;
             height: 40px;
