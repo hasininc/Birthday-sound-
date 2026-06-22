@@ -7,6 +7,9 @@ const candleStick = document.querySelector('.candle-stick');
 const flame = document.querySelector('.flame');
 const cakeContainer = document.querySelector('.cake-container');
 
+// Global audio context reference to handle browser autoplay policies
+let audioContext;
+
 // --- Main Audio Logic ---
 function startListening() {
     // 1. Request microphone access
@@ -19,7 +22,7 @@ function startListening() {
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             // 2. Set up the Audio Context and Analyser
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const analyser = audioContext.createAnalyser();
             const microphone = audioContext.createMediaStreamSource(stream);
             
@@ -39,6 +42,19 @@ function startListening() {
             alert('Microphone access is required to blow out the candle! Please refresh and grant permission.');
         });
 }
+
+// Helper to resume the AudioContext on user gesture (required by Chrome/Safari/Firefox)
+function resumeAudioContext() {
+    if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume().then(() => {
+            console.log('AudioContext resumed successfully on user interaction.');
+        });
+    }
+}
+
+// Add event listeners for interaction to unlock the AudioContext
+window.addEventListener('click', resumeAudioContext);
+window.addEventListener('touchstart', resumeAudioContext);
 
 // Function that constantly checks the sound level
 function detectBlow(analyser, dataArray) {
@@ -77,17 +93,18 @@ function putOutCandle() {
     flame.style.display = 'none';
     cakeContainer.classList.add('blown');
 
-    // 2. Display the message
-    const message = document.createElement('div');
-    message.id = 'birthday-message';
-    message.textContent = 'Happy Birthday! 🎉';
-    document.body.appendChild(message);
+    // 2. Display the message by modifying the existing element in the HTML
+    const message = document.getElementById('birthday-message');
+    if (message) {
+        message.textContent = 'Happy Birthday! 🎉';
+        message.classList.add('show');
+    }
 
-    // 3. Trigger a simple confetti effect (replace with a library for better results)
+    // 3. Trigger a simple confetti effect
     startSimpleConfetti();
 }
 
-// Simple confetti simulation (better results require a library)
+// Simple confetti simulation
 function startSimpleConfetti() {
     for (let i = 0; i < 50; i++) {
         const confetti = document.createElement('div');
@@ -95,39 +112,17 @@ function startSimpleConfetti() {
         confetti.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
         confetti.style.left = Math.random() * 100 + 'vw';
         confetti.style.animationDelay = Math.random() * 2 + 's';
+        
+        // Generate a random drift offset on X axis and set the CSS variable used in keyframes
+        const randX = (Math.random() * 200 - 100).toFixed(0);
+        confetti.style.setProperty('--rand-x', randX);
+        
         document.body.appendChild(confetti);
 
         // Remove after animation
         setTimeout(() => confetti.remove(), 5000);
     }
 }
-
-// Add CSS for the message and simple confetti (Needs to be added to your <style> in index.html)
-/*
-#birthday-message {
-    position: fixed;
-    top: 20%;
-    font-size: 40px;
-    font-weight: bold;
-    color: #FF69B4;
-    text-shadow: 2px 2px #FFFFFF;
-    z-index: 100;
-}
-.confetti-piece {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    top: -10px;
-    opacity: 0;
-    transform: rotate(45deg);
-    animation: fall 4s forwards;
-    z-index: 99;
-}
-@keyframes fall {
-    0% { top: -10px; opacity: 1; }
-    100% { top: 100vh; transform: rotate(1080deg); opacity: 0; }
-}
-*/
 
 // Start the process when the page loads
 window.onload = startListening;

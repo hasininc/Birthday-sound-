@@ -4,26 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixel Cake - Two Layers</title>
+    <!-- Google Fonts for playful/festive UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
-            flex-direction: column; /* Allow message to appear below */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #c3e8ff; /* White background matching the image */
-            overflow: hidden; /* Prevent scrollbar from confetti */
+            background: radial-gradient(circle, #e6f5ff 0%, #c3e8ff 100%);
+            overflow-x: hidden; /* Prevent horizontal scroll from confetti */
+            font-family: 'Fredoka', sans-serif;
         }
 
         /* --- CAKE CONTAINER --- */
         .cake-container {
             position: relative;
-            top: 20px;
             width: 150px; /* Overall width */
             height: 180px; /* Overall height for two layers */
             transform: scale(2.5); /* Scale up the small pixel art design */
-            margin-bottom: 50px; /* Space for message */
+            margin: 140px 0 100px 0; /* Visual spacing for scale transformation */
         }
 
         /* --- BOTTOM CAKE LAYER --- */
@@ -42,7 +46,6 @@
         .cake-layer-middle {
             position: absolute;
             bottom: 20px;
-            
             width: 150px;
             height: 10px;
             background-color: #A0522D; /* Lighter Brown */
@@ -64,29 +67,55 @@
             border-right: 2px solid #DDA0DD;
         }
 
-        h1 {
-    font-size:xx-large;
-    position: absolute;
-    top: 80px;  /* move up / down */
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-    p{
-        font-size:x-large;
-    position: absolute;
-    top: 150px;  /* move up / down */
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;   
-    }
+        /* --- DRIPS --- */
+        .drip-container {
+            position: absolute;
+            bottom: 22px; /* Hangs down over the middle layer */
+            left: 10px;
+            width: 130px;
+            height: 12px;
+            z-index: 4;
+            pointer-events: none;
+        }
+        .drip {
+            position: absolute;
+            top: 0;
+            width: 8px;
+            background-color: #FFC0CB; /* Pink to match icing */
+            border-bottom: 2px solid #DDA0DD; /* Match icing border */
+            border-radius: 0 0 2px 2px;
+        }
+        .drip:nth-child(1) { left: 6px; height: 8px; }
+        .drip:nth-child(2) { left: 18px; height: 12px; }
+        .drip:nth-child(3) { left: 32px; height: 6px; }
+        .drip:nth-child(4) { left: 45px; height: 10px; }
+        .drip:nth-child(5) { left: 60px; height: 4px; }
+        .drip:nth-child(6) { left: 75px; height: 12px; }
+        .drip:nth-child(7) { left: 90px; height: 6px; }
+        .drip:nth-child(8) { left: 105px; height: 9px; }
+        .drip:nth-child(9) { left: 116px; height: 5px; }
 
-        
+        h1 {
+            font-size: 2.5rem;
+            margin: 10px 0 5px 0;
+            color: #2b5c8f;
+            text-align: center;
+            font-family: 'Fredoka', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        p {
+            font-size: 1.3rem;
+            margin: 5px 0 10px 0;
+            color: #527eab;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+        }
 
         /* --- SPRINKLES --- */
         .sprinkles-container {
             position: absolute;
-            top: -0px; /* Position above icing-main */
+            top: 0px; /* Position above icing-main */
             left: 10px;
             width: 100%;
             height: 200px;
@@ -111,7 +140,6 @@
         .sprinkle:nth-child(8) { top: 2px; left: 115px; }
         .sprinkle:nth-child(9) { top: 8px; left: 15px; }
         .sprinkle:nth-child(10) { top: 5px; left: 90px; }
-        
 
         /* --- CANDLE --- */
         .candle-stick {
@@ -151,10 +179,6 @@
             border-radius: 50%;
         }
 
-        .h1{
-            top = 100px;
-        }
-
         @keyframes flicker {
             from { transform: scale(1); opacity: 1; }
             to { transform: scale(1.05); opacity: 0.9; }
@@ -162,26 +186,23 @@
 
         /* --- Happy Birthday Message Styling --- */
         #birthday-message {
-            position: absolute; /* Fixed position so it doesn't affect cake layout */
-            top: 20%; /* Adjust as needed */
-            font-family: 'Arial Black', sans-serif; /* A bold, fun font */
-            font-size: 40px;
-            font-weight: bold;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 44px;
+            font-weight: 700;
             color: #FF69B4; /* Hot pink */
-            text-shadow: 3px 3px 0 #FFFFFF, -3px -3px 0 #FFFFFF, 3px -3px 0 #FFFFFF, -3px 3px 0 #FFFFFF, 0px 0px 10px rgba(0,0,0,0.3); /* Outline and subtle shadow */
+            text-shadow: 3px 3px 0 #FFFFFF, -3px -3px 0 #FFFFFF, 3px -3px 0 #FFFFFF, -3px 3px 0 #FFFFFF, 0px 0px 15px rgba(255, 105, 180, 0.4);
             z-index: 100;
             pointer-events: none; /* Allows clicks to pass through */
             opacity: 0;
-            transform: translateY(-20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transform: scale(0.8) translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 40px;
+            text-align: center;
         }
 
-        
-      
-
-        h1#birthday-message.show {
+        #birthday-message.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1) translateY(0);
         }
 
         /* --- Confetti Styling --- */
@@ -243,8 +264,9 @@
         </div>
     </div>
 </div>
-<h1 id="birthday-message"></h1>
-<div id="birthday-message"></div> <script src="script.js"></script>
 
+<h1 id="birthday-message"></h1>
+
+<script src="script.js"></script>
 </body>
 </html>
