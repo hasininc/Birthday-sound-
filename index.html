@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Cake - Two Layers</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Allow message to appear below */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #ddffa7; /* White background matching the image */
+            overflow: hidden; /* Prevent scrollbar from confetti */
+        }
+
+        /* --- CAKE CONTAINER --- */
+        .cake-container {
+            position: relative;
+            width: 150px; /* Overall width */
+            height: 180px; /* Overall height for two layers */
+            transform: scale(2.5); /* Scale up the small pixel art design */
+            margin-bottom: 50px; /* Space for message */
+        }
+
+        /* --- BOTTOM CAKE LAYER --- */
+        .cake-layer-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 5px;
+            width: 140px;
+            height: 40px;
+            background-color: #654321; /* Darker Brown */
+            border: 2px solid #4B3218; /* Darker border */
+            z-index: 1;
+        }
+
+        /* --- MIDDLE CAKE LAYER --- */
+        .cake-layer-middle {
+            position: absolute;
+            bottom: 40px;
+            
+            width: 150px;
+            height: 10px;
+            background-color: #A0522D; /* Lighter Brown */
+            border: 2px solid #8B4513; /* Darker border */
+            z-index: 2;
+        }
+        
+        /* --- TOP ICING BODY (Pink) --- */
+        .icing-main {
+            position: absolute;
+            bottom: 55px; /* On top of the middle layer */
+            left: 10px;
+            width: 130px;
+            height: 35px;
+            background-color: #FFC0CB; /* Pink */
+            border-radius: 5px 5px 0 0;
+            z-index: 3;
+            border-left: 2px solid #DDA0DD; /* Darker pixel edge */
+            border-right: 2px solid #DDA0DD;
+        }
+
+        h1 {
+    font-size:xx-large;
+    position: absolute;
+    top: 80px;  /* move up / down */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+    p{
+        font-size:x-large;
+    position: absolute;
+    top: 150px;  /* move up / down */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;   
+    }
+
+        
+
+        /* --- SPRINKLES --- */
+        .sprinkles-container {
+            position: absolute;
+            top: -0px; /* Position above icing-main */
+            left: 10px;
+            width: 100%;
+            height: 200px;
+            z-index: 5;
+        }
+        .sprinkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: #FFFFFF; /* White sprinkles */
+            border-radius: 50%;
+            box-shadow: 1px 1px #DDA0DD; /* Light shadow for pixel effect */
+        }
+        /* Random positioning for sprinkles */
+        .sprinkle:nth-child(1) { top: 5px; left: -10px; }
+        .sprinkle:nth-child(2) { top: 8px; left: 5px; }
+        .sprinkle:nth-child(3) { top: 3px; left: 30px; }
+        .sprinkle:nth-child(4) { top: 6px; left: 45px; }
+        .sprinkle:nth-child(5) { top: 9px; left: 60px; }
+        .sprinkle:nth-child(6) { top: 4px; left: 75px; }
+        .sprinkle:nth-child(7) { top: 7px; left: 100px; }
+        .sprinkle:nth-child(8) { top: 2px; left: 115px; }
+        .sprinkle:nth-child(9) { top: 8px; left: 15px; }
+        .sprinkle:nth-child(10) { top: 5px; left: 90px; }
+        
+
+        /* --- CANDLE --- */
+        .candle-stick {
+            position: absolute;
+            bottom: 90px; /* On top of the icing */
+            left: 70px; /* Centered on the top layer */
+            width: 12px;
+            height: 40px;
+            background-color: #D2B48C; /* Tan/Light Brown */
+            border: 2px solid #8B4513; /* Darker brown border */
+            z-index: 6;
+            border-radius: 2px;
+        }
+
+        /* --- FLAME --- */
+        .flame {
+            position: absolute;
+            top: -25px; /* Position above candle stick */
+            left: -2px;
+            width: 16px;
+            height: 25px;
+            background-color: #FFD700; /* Yellow */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 5px rgba(255, 165, 0, 0.8); /* Glow effect */
+            z-index: 7;
+            /* Simple flickering animation */
+            animation: flicker 0.5s infinite alternate;
+        }
+        
+        .flame-tip {
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            width: 6px;
+            height: 10px;
+            background-color: #FFA500; /* Orange core */
+            border-radius: 50%;
+        }
+
+        .h1{
+            top = 100px;
+        }
+
+        @keyframes flicker {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        /* --- Happy Birthday Message Styling --- */
+        #birthday-message {
+            position: absolute; /* Fixed position so it doesn't affect cake layout */
+            top: 20%; /* Adjust as needed */
+            font-family: 'Arial Black', sans-serif; /* A bold, fun font */
+            font-size: 40px;
+            font-weight: bold;
+            color: #FF69B4; /* Hot pink */
+            text-shadow: 3px 3px 0 #FFFFFF, -3px -3px 0 #FFFFFF, 3px -3px 0 #FFFFFF, -3px 3px 0 #FFFFFF, 0px 0px 10px rgba(0,0,0,0.3); /* Outline and subtle shadow */
+            z-index: 100;
+            pointer-events: none; /* Allows clicks to pass through */
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        
+      
+
+        h1#birthday-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Confetti Styling --- */
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px; /* Start above viewport */
+            opacity: 0;
+            transform: rotate(45deg);
+            animation: fall 4s forwards;
+            z-index: 99;
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+        @keyframes fall {
+            0% { top: -10px; opacity: 1; transform: rotate(45deg); }
+            100% { top: 100vh; transform: rotate(1080deg) translateX(calc(var(--rand-x) * 1px)); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>HAPPY BIRTHDAY!!!❤️</h1>
+    <p>Blow the candle!!</p>
+
+<div class="cake-container">
+    <div class="cake-layer-bottom"></div>
+    <div class="cake-layer-middle"></div>
+    
+    <div class="icing-main">
+        <div class="sprinkles-container">
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+            <div class="sprinkle"></div>
+        </div>
+    </div>
+    
+    <div class="drip-container">
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+    </div>
+    
+    <div class="candle-stick">
+        <div class="flame">
+            <div class="flame-tip"></div>
+        </div>
+    </div>
+</div>
+<h1 id="birthday-message"></h1>
+<div id="birthday-message"></div> <script src="script.js"></script>
+
+</body>
+</html>
